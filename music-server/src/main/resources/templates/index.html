@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Ch">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="/js/home.js"></script>
+    <script type="text/javascript" src="/js/tools.js"></script>
+    <script type="text/javascript" src="/js/music.js"></script>
+    <link rel="icon " href="/img/icon1.ico ">
+    <link rel="stylesheet" href="/css/search.css">
+    <title id="title">首页</title>
+
+    <style>
+        html {
+            display: none;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+         ::-webkit-scrollbar {
+            display: none;
+        }
+        
+        body {
+            background: #555;
+            background-size: cover;
+            padding: 0px;
+            margin: 0px;
+            height: 100%;
+            position: relative;
+            width: 100%;
+            overflow-y: auto;
+            text-align: center;
+        }
+        
+        #music-body-box {
+            background: #777;
+            position: relative;
+            margin: 0px;
+            padding: 0px;
+            width: 84%;
+            overflow-y: scroll;
+            transition: 0.4s linear;
+        }
+        
+        #foot {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+        }
+        
+        @media screen and (max-width:900px) {
+            #music-body-box {
+                margin-left: 0%;
+                width: 100%;
+                transition: 0.4s linear;
+            }
+        }
+    </style>
+</head>
+
+<body ontouchstart>
+    <div id="head"></div>
+
+
+    <!--index主体-->
+    <iframe id="music-body-box" frameborder="0" src="./search.html">
+    </iframe>
+
+
+
+    <!-- index主体结束-->
+    <div id="foot"></div>
+
+
+</body>
+
+</html>
+<script type="text/javascript">
+    $(window).ready(function() {
+        if (self == top) {
+            document.documentElement.style.display = 'block';
+        } else {
+            top.location = self.location;
+        }
+        //加载页面
+        $("#head").load("./head.html");
+        $("#foot").load("./foot.html");
+
+        let bodyHeight = $("body")[0]['offsetHeight'] - 107
+        $("#music-body-box").css("height", bodyHeight + "px")
+        $("#music-body-box").css("max-height", bodyHeight + "px")
+
+    });
+</script>

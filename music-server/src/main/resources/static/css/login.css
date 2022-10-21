@@ -1,0 +1,82 @@
+html {
+    height: 100%;
+}
+
+body {
+    background: url(/img/login.jpg) no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    padding: 0%;
+    margin: 0%;
+    overflow: hidden;
+}
+
+#index-div {
+    position: relative;
+    float: right;
+    margin-right: 18%;
+    top: 24%;
+    /*border: 1px solid blue;*/
+    width: 340px;
+    text-align: center;
+}
+
+#login-title {
+    font: 2em sans-serif;
+    font-weight: 700;
+    color: rgb(120, 120, 120);
+}
+
+#index-form {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    padding-top: 15px;
+    background-color: white;
+    /* border: 1px solid red; */
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    opacity: 0.95;
+}
+
+input {
+    border-top: white;
+    border-left: white;
+    border-right: white;
+    border-color: rgb(214, 216, 218);
+    /* border: 1px solid red; */
+    margin-top: 16px;
+    padding-left: 5px;
+    width: 85%;
+    height: 3em;
+    font-size: 1em;
+    outline: none;
+}
+
+button {
+    background-color: rgb(65, 65, 65);
+    border: 1px solid rgb(49, 50, 51);
+    border-radius: 3px;
+    margin-top: 30px;
+    color: white;
+    width: 90%;
+    height: 3em;
+}
+
+a {
+    color: rgb(0, 102, 255);
+    font-size: 0.8em;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 900px) {
+    #index-div {
+        float: none;
+        margin: auto;
+        margin-top: 0%;
+        top: 18%;
+        transition: 0.4s linear;
+    }
+}

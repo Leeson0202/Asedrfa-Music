@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.asedrfa.music.dao.TLoadDao">
+
+    <resultMap id="BaseResultMap" type="top.asedrfa.music.entity.TLoad">
+        <!--@Table t_load-->
+        <result property="lId" column="l_id" jdbcType="VARCHAR"/>
+        <result property="appId" column="app_id" jdbcType="VARCHAR"/>
+        <result property="uId" column="u_id" jdbcType="VARCHAR"/>
+        <result property="msg" column="msg" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          l_id, app_id, u_id, msg
+        from music.t_load
+        where l_id = #{lId}
+    </select>
+    <!--查询单个   queryByappId-->
+    <select id="queryByappId" resultMap="BaseResultMap">
+        select
+          l_id, app_id, u_id, msg
+        from music.t_load
+        where app_id = #{appId}
+    </select>
+    <!--查询单个   queryByuId-->
+    <select id="queryByuId" resultMap="BaseResultMap">
+        select
+          l_id, app_id, u_id, msg
+        from music.t_load
+        where u_id = #{uId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          l_id, app_id, u_id, msg
+        from music.t_load
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          l_id, app_id, u_id, msg
+        from music.t_load
+        <where>
+            <if test="lId != null and lId != ''">
+                and l_id = #{lId}
+            </if>
+            <if test="appId != null and appId != ''">
+                and app_id = #{appId}
+            </if>
+            <if test="uId != null and uId != ''">
+                and u_id = #{uId}
+            </if>
+            <if test="msg != null and msg != ''">
+                and msg = #{msg}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="lId" useGeneratedKeys="true">
+        insert into music.t_load(l_id,app_id, u_id, msg)
+        values (#{lId},#{appId}, #{uId}, #{msg})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update music.t_load
+        <set>
+            <if test="appId != null and appId != ''">
+                app_id = #{appId},
+            </if>
+            <if test="uId != null and uId != ''">
+                u_id = #{uId},
+            </if>
+            <if test="msg != null and msg != ''">
+                msg = #{msg},
+            </if>
+        </set>
+        where l_id = #{lId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from music.t_load where l_id = #{lId}
+    </delete>
+
+</mapper>

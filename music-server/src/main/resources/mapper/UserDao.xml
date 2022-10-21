@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.asedrfa.music.dao.UserDao">
+
+    <resultMap id="BaseResultMap" type="top.asedrfa.music.entity.User">
+        <!--@Table user-->
+        <result property="uId" column="u_id" jdbcType="VARCHAR"/>
+        <result property="usr" column="usr" jdbcType="VARCHAR"/>
+        <result property="pwd" column="pwd" jdbcType="VARCHAR"/>
+        <result property="tel" column="tel" jdbcType="VARCHAR"/>
+        <result property="nName" column="n_name" jdbcType="VARCHAR"/>
+        <result property="rName" column="r_name" jdbcType="VARCHAR"/>
+        <result property="hUrl" column="h_url" jdbcType="VARCHAR"/>
+        <result property="gdId" column="gd_id" jdbcType="VARCHAR"/>
+        <result property="usrDate" column="usr_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select u_id,
+               usr,
+               pwd,
+               tel,
+               n_name,
+               r_name,
+               h_url,
+               gd_id,
+               usr_date
+        from music.user
+        where u_id = #{uId}
+    </select>
+    <!--查询单个  tel -->
+    <select id="queryByTel" resultMap="BaseResultMap">
+        select u_id,
+               usr,
+               pwd,
+               tel,
+               n_name,
+               r_name,
+               h_url,
+               gd_id,
+               usr_date
+        from music.user
+        where tel = #{tel}
+    </select>
+    <!--查询单个  tel -->
+    <select id="queryByUsr" resultMap="BaseResultMap">
+        select u_id,
+               usr,
+               pwd,
+               tel,
+               n_name,
+               r_name,
+               h_url,
+               gd_id,
+               usr_date
+        from music.user
+        where usr = #{usr}
+    </select>
+    <!--查询单个 得到 GetUser  uId -->
+    <select id="GetUserByuId" resultType="top.asedrfa.music.entity.GetUser">
+        select usr as usr,
+               tel as tel,
+               n_name as nName,
+               r_name as rName,
+               h_url as hUrl,
+               gd_id as gdId
+        from music.user
+        where u_id = #{uId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select u_id,
+               usr,
+               pwd,
+               tel,
+               n_name,
+               r_name,
+               h_url,
+               gd_id,
+               usr_date
+        from music.user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        u_id, usr, pwd, tel, n_name, r_name, h_url, gd_id, usr_date
+        from music.user
+        <where>
+            <if test="uId != null and uId != ''">
+                and u_id = #{uId}
+            </if>
+            <if test="usr != null and usr != ''">
+                and usr = #{usr}
+            </if>
+            <if test="pwd != null and pwd != ''">
+                and pwd = #{pwd}
+            </if>
+            <if test="tel != null and tel != ''">
+                and tel = #{tel}
+            </if>
+            <if test="nName != null and nName != ''">
+                and n_name = #{nName}
+            </if>
+            <if test="rName != null and rName != ''">
+                and r_name = #{rName}
+            </if>
+            <if test="hUrl != null and hUrl != ''">
+                and h_url = #{hUrl}
+            </if>
+            <if test="gdId != null and gdId != ''">
+                and gd_id = #{gdId}
+            </if>
+            <if test="usrDate != null">
+                and usr_date = #{usrDate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="uId" useGeneratedKeys="true">
+        insert into music.user(u_id, usr, pwd, tel, n_name, r_name, h_url, gd_id, usr_date)
+        values (#{uId}, #{usr}, #{pwd}, #{tel}, #{nName}, #{rName}, #{hUrl}, #{gdId}, #{usrDate})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update music.user
+        <set>
+            <if test="usr != null and usr != ''">
+                usr = #{usr},
+            </if>
+            <if test="pwd != null and pwd != ''">
+                pwd = #{pwd},
+            </if>
+            <if test="tel != null and tel != ''">
+                tel = #{tel},
+            </if>
+            <if test="nName != null and nName != ''">
+                n_name = #{nName},
+            </if>
+            <if test="rName != null and rName != ''">
+                r_name = #{rName},
+            </if>
+            <if test="hUrl != null and hUrl != ''">
+                h_url = #{hUrl},
+            </if>
+            <if test="gdId != null and gdId != ''">
+                gd_id = #{gdId},
+            </if>
+            <if test="usrDate != null">
+                usr_date = #{usrDate},
+            </if>
+        </set>
+        where u_id = #{uId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from music.user
+        where u_id = #{uId}
+    </delete>
+
+</mapper>

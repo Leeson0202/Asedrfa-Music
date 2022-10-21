@@ -1,0 +1,51 @@
+<div id="foot-box">
+    <div id="foot-box-detail">
+        <div id="player">
+            <div class="up-next">
+                <img id="pre" class="l-btn" src="/img/上.svg" alt="1">
+                <img id="pause-btn" class="l-btn" src="/img/播放.svg" alt="">
+                <img id="next" class="l-btn" src="/img/下.svg" alt="">
+                <img id="fUrl" src="/img/fUrl.svg" alt="">
+            </div>
+
+            <div class="systemUpdates">
+                <label id="music-name"></label>
+                <span class="process">
+                    <label id="cur-time">00:00</label>
+                    <label>/</label>
+                    <label id="all-time">00:00</label></span>
+                <div class="progressBar" id="progressBar">
+                    <div class="barContent" id="barContent"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="/css/foot.css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<script type="text/javascript">
+    $(window).ready(function() {
+        player = {}
+        player.pre = document.getElementById("pre");
+        player.pauseBtn = document.getElementById("pause-btn");
+        player.next = document.getElementById("next");
+        player.fUrl = document.getElementById("fUrl");
+        player.curTime = document.getElementById("cur-time");
+        player.allTime = document.getElementById("all-time");
+        player.musicName = document.getElementById("music-name");
+        player.Bar = document.getElementById("progressBar");
+        player.barContent = document.getElementById("barContent");
+        player.iframe = document.getElementById("music-body-box")
+        player.musicList = []
+        player.pausetag = 0; //播放状态量
+        player.app = new Music_APP();
+        console.log(player.app);
+        player.app.init();
+
+        console.log(player.app);
+
+
+    })
+</script>

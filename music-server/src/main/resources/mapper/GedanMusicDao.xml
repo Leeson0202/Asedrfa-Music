@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.asedrfa.music.dao.GedanMusicDao">
+
+    <resultMap id="BaseResultMap" type="top.asedrfa.music.entity.GedanMusic">
+        <!--@Table gedan_music-->
+        <result property="gdId" column="gd_id" jdbcType="VARCHAR"/>
+        <result property="mId" column="m_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个 指定记录-->
+    <select id="queryByGedanMId" resultMap="BaseResultMap">
+        select gd_id,
+               m_id
+        from music.gedan_music
+        where gd_id = #{gdId}
+          and m_id = #{mId}
+    </select>
+    <!--查询歌单的所有音乐记录-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select gd_id,
+               m_id
+        from music.gedan_music
+        where gd_id = #{gdId}
+    </select>
+
+    <!--查询歌曲的所有记录-->
+    <select id="queryByMId" resultMap="BaseResultMap">
+        select gd_id,
+               m_id
+        from music.gedan_music
+        where m_id = #{mId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select gd_id,
+               m_id
+        from music.gedan_music
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        gd_id, m_id
+        from music.gedan_music
+        <where>
+            <if test="gdId != null and gdId != ''">
+                and gd_id = #{gdId}
+            </if>
+            <if test="mId != null and mId != ''">
+                and m_id = #{mId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="gdId" useGeneratedKeys="true">
+        insert into music.gedan_music(gd_id, m_id)
+        values (#{gdId}, #{mId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update music.gedan_music
+        <set>
+        </set>
+        where gd_id = #{gdId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from music.gedan_music
+        where gd_id = #{gdId}
+    </delete>
+    <!--通过deleteByIdMId  删除歌单中的一条数据-->
+    <delete id="deleteByIdMId">
+        delete
+        from music.gedan_music
+        where gd_id = #{gdId}
+          and m_id = #{mId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.asedrfa.music.dao.MusicDao">
+
+    <resultMap id="BaseResultMap" type="top.asedrfa.music.entity.Music">
+        <!--@Table music-->
+        <result property="mId" column="m_id" jdbcType="VARCHAR"/>
+        <result property="singer" column="singer" jdbcType="VARCHAR"/>
+        <result property="mUrl" column="m_url" jdbcType="VARCHAR"/>
+        <result property="gcUrl" column="gc_url" jdbcType="VARCHAR"/>
+        <result property="fUrl" column="f_url" jdbcType="VARCHAR"/>
+        <result property="mName" column="m_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询多个 通过mNmae-->
+    <select id="queryByMName" resultMap="BaseResultMap">
+        select m_id,
+               singer,
+               m_url,
+               gc_url,
+               f_url,
+               m_name
+        from music.music
+        where music.m_name like #{mName}
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select m_id,
+               singer,
+               m_url,
+               gc_url,
+               f_url,
+               m_name
+        from music.music
+        where m_id = #{mId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select m_id,
+               singer,
+               m_url,
+               gc_url,
+               f_url,
+               m_name
+        from music.music
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        m_id, singer, m_url, gc_url, f_url, m_name
+        from music.music
+        <where>
+            <if test="mId != null and mId != ''">
+                and m_id = #{mId}
+            </if>
+            <if test="singer != null and singer != ''">
+                and singer = #{singer}
+            </if>
+            <if test="mUrl != null and mUrl != ''">
+                and m_url = #{mUrl}
+            </if>
+            <if test="gcUrl != null and gcUrl != ''">
+                and gc_url = #{gcUrl}
+            </if>
+            <if test="fUrl != null and fUrl != ''">
+                and f_url = #{fUrl}
+            </if>
+            <if test="mName != null and mName != ''">
+                and m_name = #{mName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert">
+        insert into music.music
+        values (#{mId}, #{singer}, #{mUrl}, #{gcUrl}, #{fUrl}, #{mName})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update music.music
+        <set>
+            <if test="singer != null and singer != ''">
+                singer = #{singer},
+            </if>
+            <if test="mUrl != null and mUrl != ''">
+                m_url = #{mUrl},
+            </if>
+            <if test="gcUrl != null and gcUrl != ''">
+                gc_url = #{gcUrl},
+            </if>
+            <if test="fUrl != null and fUrl != ''">
+                f_url = #{fUrl},
+            </if>
+            <if test="mName != null and mName != ''">
+                m_name = #{mName},
+            </if>
+        </set>
+        where m_id = #{mId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from music.music
+        where m_id = #{mId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.asedrfa.music.dao.GedanDao">
+
+    <resultMap id="BaseResultMap" type="top.asedrfa.music.entity.Gedan">
+        <!--@Table gedan-->
+        <result property="gdId" column="gd_id" jdbcType="VARCHAR"/>
+        <result property="uId" column="u_id" jdbcType="VARCHAR"/>
+        <result property="gdName" column="gd_name" jdbcType="VARCHAR"/>
+        <result property="gdFm" column="gd_fm" jdbcType="VARCHAR"/>
+        <result property="mNum" column="m_num" jdbcType="INTEGER"/>
+        <result property="gdDate" column="gd_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--queryBy uId-->
+    <select id="queryByUId" resultType="top.asedrfa.music.entity.GetGedan">
+        select gd_id   as gdId,
+               gd_name as gdName,
+               gd_fm   as gdFm,
+               m_num   as mNum,
+               gd_date as gdDate
+        from music.gedan
+        where u_id = #{uId}
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultType="top.asedrfa.music.entity.GetGedan">
+        select gd_id   as gdId,
+               gd_name as gdName,
+               gd_fm   as gdFm,
+               m_num   as mNum,
+               gd_date as gdDate
+        from music.gedan
+        where gd_id = #{gdId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select gd_id,
+               u_id,
+               gd_name,
+               gd_fm,
+               m_num,
+               gd_date
+        from music.gedan
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        gd_id, u_id, gd_name, gd_fm, m_num, gd_date
+        from music.gedan
+        <where>
+            <if test="gdId != null and gdId != ''">
+                and gd_id = #{gdId}
+            </if>
+            <if test="uId != null and uId != ''">
+                and u_id = #{uId}
+            </if>
+            <if test="gdName != null and gdName != ''">
+                and gd_name = #{gdName}
+            </if>
+            <if test="gdFm != null and gdFm != ''">
+                and gd_fm = #{gdFm}
+            </if>
+            <if test="mNum != null">
+                and m_num = #{mNum}
+            </if>
+            <if test="gdDate != null">
+                and gd_date = #{gdDate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="gdId" useGeneratedKeys="true">
+        insert into music.gedan(gd_id, u_id, gd_name, gd_fm, m_num, gd_date)
+        values (#{gdId}, #{uId}, #{gdName}, #{gdFm}, #{mNum}, #{gdDate})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update music.gedan
+        <set>
+            <if test="uId != null and uId != ''">
+                u_id = #{uId},
+            </if>
+            <if test="gdName != null and gdName != ''">
+                gd_name = #{gdName},
+            </if>
+            <if test="gdFm != null and gdFm != ''">
+                gd_fm = #{gdFm},
+            </if>
+            <if test="mNum != null">
+                m_num = #{mNum},
+            </if>
+            <if test="gdDate != null">
+                gd_date = #{gdDate},
+            </if>
+        </set>
+        where gd_id = #{gdId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from music.gedan
+        where gd_id = #{gdId}
+    </delete>
+
+</mapper>
